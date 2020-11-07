@@ -41,7 +41,7 @@ O Harris Corner Detector é um operador de detecção de cantos comumente usado 
     <p align="center">
     <img src="../imagens/cap4/cantos.PNG" width="250" height="200"/>
     </p>
-    <p> <b>Figura 1:</b> Exemplo de quina </p>
+    <p> <b>Figura 2:</b> Exemplo de quina </p>
 </div>
 
 Um quinas é um ponto cuja vizinhança local está em duas direções de borda dominantes e diferentes. Em outras palavras, um canto pode ser interpretado como a junção de duas arestas, onde uma aresta é uma mudança repentina no brilho da imagem. As quinas são as características importantes da imagem e geralmente são denominados pontos de interesse que são invariáveis à translação, rotação e iluminação.
@@ -50,7 +50,7 @@ Um quinas é um ponto cuja vizinhança local está em duas direções de borda d
     <p align="center">
     <img src="../imagens/cap4/cantos-edisciplinas-usp.PNG" width="250" height="200"/>
     </p>
-    <p> <b>Figura 1:</b> Explicação sobre como encontramos quinas e bordas </p>
+    <p> <b>Figura 3:</b> Explicação sobre como encontramos quinas e bordas </p>
 </div>
 
 
@@ -160,10 +160,8 @@ teste_cinza = cv2.cvtColor(teste_RGB, cv2.COLOR_RGB2GRAY)
 
 # Vamos mostrar a imagem na tela
 fx, plots = plt.subplots(1, 2, figsize=(20,10))
-
 plots[0].set_title("Imagem Inicial")
 plots[0].imshow(imagem_RGB)
-
 plots[1].set_title("Imagem para Teste")
 plots[1].imshow(teste_RGB)
 ```
@@ -180,40 +178,31 @@ keypoints_with_size = np.copy(training_image)
 cv2.drawKeypoints(training_image, train_keypoints, keypoints_without_size, color = (0, 255, 0))
 cv2.drawKeypoints(training_image, train_keypoints, keypoints_with_size, flags = cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
-# Display image with and without keypoints size
 fx, plots = plt.subplots(1, 2, figsize=(20,10))
 plots[0].set_title("Train keypoints With Size")
 plots[0].imshow(keypoints_with_size, cmap='gray')
 plots[1].set_title("Train keypoints Without Size")
 plots[1].imshow(keypoints_without_size, cmap='gray')
 
-# Print the number of keypoints detected in the training image
 print("Number of Keypoints Detected In The Training Image: ", len(train_keypoints))
-
-# Print the number of keypoints detected in the query image
 print("Number of Keypoints Detected In The Query Image: ", len(test_keypoints))
 ```
 
 5. Agora vamos realizar a parte de matching dos Keypoints
 ```python
-# Create a Brute Force Matcher object.
 bf = cv2.BFMatcher(cv2.NORM_L1, crossCheck = False)
-
-# Perform the matching between the SIFT descriptors of the training image and the test image
 matches = bf.match(train_descriptor, test_descriptor)
-
-# The matches with shorter distance are the ones we want.
 matches = sorted(matches, key = lambda x : x.distance)
 result = cv2.drawMatches(training_image, train_keypoints, test_gray, test_keypoints, matches, test_gray, flags = 2)
 
-# Display the best matching points
+
 plt.rcParams['figure.figsize'] = [14.0, 7.0]
 plt.title('Best Matching Points')
 plt.imshow(result)
 plt.show()
 
-# Print total number of matching points between the training and query images
-print("\nNumber of Matching Keypoints Between The Training and Query Images: ", len(matches))
+
+print("\nNúmero Matching: ", len(matches))
 ```
 
 ### SURF (recurso robusto acelerado)
@@ -253,10 +242,8 @@ teste_cinza = cv2.cvtColor(teste_RGB, cv2.COLOR_RGB2GRAY)
 
 # Vamos mostrar a imagem na tela
 fx, plots = plt.subplots(1, 2, figsize=(20,10))
-
 plots[0].set_title("Imagem Inicial")
 plots[0].imshow(imagem_RGB)
-
 plots[1].set_title("Imagem para Teste")
 plots[1].imshow(teste_RGB)
 ```
@@ -266,51 +253,37 @@ surf = cv2.xfeatures2d.SURF_create(800)
 
 train_keypoints, train_descriptor = surf.detectAndCompute(training_gray, None)
 test_keypoints, test_descriptor = surf.detectAndCompute(test_gray, None)
-
 keypoints_without_size = np.copy(training_image)
 keypoints_with_size = np.copy(training_image)
 
 cv2.drawKeypoints(training_image, train_keypoints, keypoints_without_size, color = (0, 255, 0))
-
 cv2.drawKeypoints(training_image, train_keypoints, keypoints_with_size, flags = cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
-# Display image with and without keypoints size
-fx, plots = plt.subplots(1, 2, figsize=(20,10))
 
+fx, plots = plt.subplots(1, 2, figsize=(20,10))
 plots[0].set_title("Train keypoints With Size")
 plots[0].imshow(keypoints_with_size, cmap='gray')
-
 plots[1].set_title("Train keypoints Without Size")
 plots[1].imshow(keypoints_without_size, cmap='gray')
 
-# Print the number of keypoints detected in the training image
-print("Number of Keypoints Detected In The Training Image: ", len(train_keypoints))
-
-# Print the number of keypoints detected in the query image
-print("Number of Keypoints Detected In The Query Image: ", len(test_keypoints))
+print("Número Keypoints na imagem real: ", len(train_keypoints))
+print("Número Keypoints na imagem editada: ", len(test_keypoints))
 ```
 
 5. Agora vamos realizar a parte de matching dos Keypoints
 ```python
-# Create a Brute Force Matcher object.
+
 bf = cv2.BFMatcher(cv2.NORM_L1, crossCheck = False)
-
-# Perform the matching between the SURF descriptors of the training image and the test image
 matches = bf.match(train_descriptor, test_descriptor)
-
-# The matches with shorter distance are the ones we want.
 matches = sorted(matches, key = lambda x : x.distance)
-
 result = cv2.drawMatches(training_image, train_keypoints, test_gray, test_keypoints, matches, test_gray, flags = 2)
 
-# Display the best matching points
+
 plt.rcParams['figure.figsize'] = [14.0, 7.0]
-plt.title('Best Matching Points')
+plt.title('Keypoints')
 plt.imshow(result)
 plt.show()
-
-# Print total number of matching points between the training and query images
-print("\nNumber of Matching Keypoints Between The Training and Query Images: ", len(matches))
+print("\nNúmero de Matching: ", len(matches))
 ```
 
 
