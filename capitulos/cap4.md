@@ -29,13 +29,25 @@ Quando se trata de algoritmos que realizam a identificação destes pontos exist
 ### Harris Corner
 O Harris Corner Detector é um operador de detecção de cantos comumente usado em algoritmos de visão computacional para extrair cantos e inferir características de uma imagem. Foi introduzido pela primeira vez por Chris Harris e Mike Stephens em 1988 com o aprimoramento do detector de canto de Moravec. Em comparação com o anterior, o detector de canto de Harris leva o diferencial da pontuação de canto em consideração com referência à direção diretamente, em vez de usar remendos de deslocamento para cada ângulo de 45 graus, e provou ser mais preciso na distinção entre bordas e cantos. Desde então, ele foi aprimorado e adotado em muitos algoritmos para pré-processar imagens para aplicações subsequentes.
 
-#### Mas o que seria um Canto?
-Um canto é um ponto cuja vizinhança local está em duas direções de borda dominantes e diferentes. Em outras palavras, um canto pode ser interpretado como a junção de duas arestas, onde uma aresta é uma mudança repentina no brilho da imagem. Os cantos são as características importantes da imagem e geralmente são denominados pontos de interesse que são invariáveis à translação, rotação e iluminação.
+#### Mas o que seria um quinas?
+<div align="center">
+    <p align="center">
+    <img src="../imagens/cap4/cantos-edisciplinas-usp.PNG" width="250" height="200"/>
+    </p>
+    <p> <b>Figura 1:</b> Explicação sobre como encontramos cantos e bordas </p>
+</div>
 
-[fig]
+Um quinas é um ponto cuja vizinhança local está em duas direções de borda dominantes e diferentes. Em outras palavras, um canto pode ser interpretado como a junção de duas arestas, onde uma aresta é uma mudança repentina no brilho da imagem. As quinas são as características importantes da imagem e geralmente são denominados pontos de interesse que são invariáveis à translação, rotação e iluminação.
+
+<div align="center">
+    <p align="center">
+    <img src="../imagens/cap4/cantos-edisciplinas-usp.PNG" width="250" height="200"/>
+    </p>
+    <p> <b>Figura 1:</b> Explicação sobre como encontramos quinas e bordas </p>
+</div>
 
 
-Então, vamos entender por que os cantos são considerados recursos melhores ou bons para mapeamento de patch. Na figura acima, se pegarmos a região plana, nenhuma mudança de gradiente é observada em qualquer direção. Da mesma forma, na região da borda, nenhuma mudança de gradiente é observada ao longo da direção da borda. Portanto, tanto a região plana quanto a região da borda são ruins para a correspondência de remendo, uma vez que não são muito distintas (há muitos remendos semelhantes ao longo da borda na região da borda). Enquanto na região do canto, observamos uma mudança significativa de gradiente em todas as direções. Devido a isso, os cantos são considerados bons para a correspondência de patch (mudar a janela em qualquer direção produz uma grande mudança na aparência) e geralmente mais estáveis ​​em relação à mudança do ponto de vista.
+Então, vamos entender por que as quinas são considerados recursos melhores ou bons para mapeamento de patch. Na figura acima, se pegarmos a região plana, nenhuma mudança de gradiente é observada em qualquer direção. Da mesma forma, na região da borda, nenhuma mudança de gradiente é observada ao longo da direção da borda. Portanto, tanto a região plana quanto a região da borda são ruins para a correspondência de remendo, uma vez que não são muito distintas (há muitos remendos semelhantes ao longo da borda na região da borda). Enquanto na região do canto, observamos uma mudança significativa de gradiente em todas as direções. Devido a isso, as quuinas são consideradas boas para a correspondência de patch (mudar a janela em qualquer direção produz uma grande mudança na aparência) e geralmente mais estáveis em relação à mudança do ponto de vista.
 
 Pseudocódigo de alto nível
 Pegue a escala de cinza da imagem original
