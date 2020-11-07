@@ -24,6 +24,13 @@ Uma forma de pensar sobre este tipo de representação é imaginar que os pontos
 
 Outro exemplo também é a perícia de escrita. Imagine que estamos investigando se um suspeito X escreveu ou não a carta encontrada na cena do crime. Uma forma de realizar esta análise poderia ser pegar um texto que foi escrito pelo suspeito e procurar os principais traços que diferenciam sua escrita. Desta forma, para verificar se as assinaturas batem, o que teríamos que fazer é apenas comparar se estes traços principais se assemelham nas duas cartas ou não, sem a necessidade de comparar todas as letras.
 
+<div align="center">
+    <p align="center">
+    <img src="../imagens/cap4/quality9.PNG" width="250" height="200"/>
+    </p>
+    <p> <b>Figura 1:</b> Exemplo de análise de caligrafia </p>
+</div>
+
 Quando se trata de algoritmos que realizam a identificação destes pontos existem diversas abordagens. Iremos descrever as principais:
 
 ### Harris Corner
@@ -32,9 +39,9 @@ O Harris Corner Detector é um operador de detecção de cantos comumente usado 
 #### Mas o que seria um quinas?
 <div align="center">
     <p align="center">
-    <img src="../imagens/cap4/cantos-edisciplinas-usp.PNG" width="250" height="200"/>
+    <img src="../imagens/cap4/cantos.PNG" width="250" height="200"/>
     </p>
-    <p> <b>Figura 1:</b> Explicação sobre como encontramos cantos e bordas </p>
+    <p> <b>Figura 1:</b> Exemplo de quina </p>
 </div>
 
 Um quinas é um ponto cuja vizinhança local está em duas direções de borda dominantes e diferentes. Em outras palavras, um canto pode ser interpretado como a junção de duas arestas, onde uma aresta é uma mudança repentina no brilho da imagem. As quinas são as características importantes da imagem e geralmente são denominados pontos de interesse que são invariáveis à translação, rotação e iluminação.
